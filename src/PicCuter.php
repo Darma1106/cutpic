@@ -18,6 +18,13 @@ public function cut_picture($src_path,$fpixel = 250){
     //name为图片文件的名字
     $ar = explode('/', $src_path);
     $name = end($ar);
+    //使用某些插件截取图片后上传会出现检测不到扩展名的情况，故默认jpg
+    if(!pathinfo($name)['extension']){
+        $this->ext = 'jpg';     
+    }
+    else{
+    $this->ext = pathinfo($name)['extension'];
+    }
     $this->imgfpixel = $fpixel;
     $this->ext = pathinfo($name)['extension'];
     $this->filename = pathinfo($name)['filename'];
@@ -27,11 +34,11 @@ public function cut_picture($src_path,$fpixel = 250){
 }
 private function cut($src_path){
     $num = 1;
+    //储存分割完后的图片路径
     $pic_src = array();
     $width = $this->img_info[0]/3;
     $height = $this->img_info[1]/3;
     $fpx = $this->imgfpixel;
-    // echo $this->imgfpixel;
     $src = imagecreatefromstring(file_get_contents($src_path));
     //将裁剪区域复制到新图片上，并根据源和目标的宽高进行缩放或者拉升
     $new_image = imagecreatetruecolor($fpx, $fpx);
