@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # PicCuter
 PHP九宫格分图(将一张图分成9张，并保存)
 # PicCuter->set_save_dir(dir)
